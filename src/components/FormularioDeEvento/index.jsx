@@ -6,9 +6,24 @@ import './formulario-de-evento.estilos.css'
 import { Botao } from "../Botao"
 import { ListaSuspensa } from "../ListaSuspensa"
 
-export function FormularioDeEvento({ temas }) {
+export function FormularioDeEvento({ temas, aoSubmeter }) {
+
+  function aoFormSubmetido(formData) {
+    console.log('Hora de criar um evento' + formData)
+
+    let evento = {
+      capa: formData.get('capa'),
+      tema: temas.find((item) => {
+        return item.id == formData.get('tema')
+      }),
+      data: new Date(formData.get('dataEvento')),
+      titulo: formData.get('nomeEvento')
+    }
+    aoSubmeter(evento)
+  }
+
   return (
-  <form className="form-evento">
+  <form className="form-evento" action={aoFormSubmetido}>
     <TituloDoFormulario>
       Preencha para criar um evento:
     </TituloDoFormulario>
