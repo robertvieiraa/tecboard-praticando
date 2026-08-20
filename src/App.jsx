@@ -57,13 +57,16 @@ function App() {
       <Banner />
       <FormularioDeEvento temas={temas} aoSubmeter={adicionarEvento} />
       <section className="container">
-      {temas.map(function (item) {
+      {temas.map(function (tema) {
         return (
-          <section key={item.id}>
-            <Tema tema={item} />
+          <section key={tema.id}>
+            <Tema tema={tema} />
             <div className="eventos">
-              {eventos.map((item, indice) => {
-                return <CardEvento evento={item} key={indice}/>
+              {eventos.filter((evento) => {
+                return evento.tema.id == tema.id
+              })
+              .map((evento, indice) => {
+                return <CardEvento evento={evento} key={indice}/>
               })}
             </div>
           </section>
